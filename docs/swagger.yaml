@@ -1,0 +1,43 @@
+definitions:
+  request.Transaction:
+    properties:
+      account_id:
+        type: integer
+      amount:
+        type: number
+      operation_type:
+        type: integer
+    required:
+    - account_id
+    - amount
+    - operation_type
+    type: object
+info:
+  contact: {}
+paths:
+  /transaction:
+    post:
+      consumes:
+      - application/json
+      description: Create a transaction for given operation type with amount and account
+        id
+      parameters:
+      - description: Transaction
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.Transaction'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Initiate Transaction for a payment
+swagger: "2.0"
