@@ -26,7 +26,7 @@ func NewTransactionHandler(transactionService service.TransactionService) Transa
 // @Success		201
 // @Failure		400 {object}	interface{}
 // @Failure		500 {object}	interface{}
-// @Router      /transaction [post]
+// @Router      /v1/transaction [post]
 func (th *TransactionHandler) CreateTransaction(c *fiber.Ctx) error {
 	req := &handlers.Transaction{}
 	if err := c.BodyParser(req); err != nil {

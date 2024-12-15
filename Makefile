@@ -14,3 +14,6 @@ mockgen:
 	@go generate ././core/...
 	@go generate ./db/...
 	@printf "Mocks Generated"
+
+generate-docs:
+		swag init

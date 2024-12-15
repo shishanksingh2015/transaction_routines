@@ -15,6 +15,18 @@ type AccountHandler struct {
 func NewAccountHandler(service service.AccountService) AccountHandler {
 	return AccountHandler{accountService: service}
 }
+
+// CreateAccount godoc
+//
+// @Summary 	Create an account for user
+// @Description	Create an account for given document number for user.
+// @Accept	 	application/json
+// @Param	  	data					body	handlers.AccountRequest	true "AccountRequest"
+// @Produce		json
+// @Success		201
+// @Failure		400 {object}	interface{}
+// @Failure		500 {object}	interface{}
+// @Router      /v1/account [post]
 func (ah *AccountHandler) CreateAccount(c *fiber.Ctx) error {
 	req := &handlers.AccountRequest{}
 	if err := c.BodyParser(req); err != nil {
@@ -33,6 +45,17 @@ func (ah *AccountHandler) CreateAccount(c *fiber.Ctx) error {
 	return c.Status(http.StatusCreated).SendString("account created successfully")
 }
 
+// GetAccount godoc
+//
+// @Summary 	Initiate Transaction for a payment
+// @Description	Create a transaction for given operation type with amount and account id
+// @Accept	 	application/json
+// @Param	  	accountId					path	integer 	true "accountId"
+// @Produce		json
+// @Success		200	{object}		domain.Account
+// @Failure		400 {object}	interface{}
+// @Failure		500 {object}	interface{}
+// @Router      /v1/account/{accountId} [get].
 func (ah *AccountHandler) GetAccount(c *fiber.Ctx) error {
 	accountId, err := c.ParamsInt("accountId", -1)
 	if err != nil {

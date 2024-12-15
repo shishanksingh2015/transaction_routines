@@ -1,4 +1,18 @@
 definitions:
+  domain.Account:
+    properties:
+      documentNumber:
+        type: string
+      id:
+        type: integer
+    type: object
+  request.AccountRequest:
+    properties:
+      document_number:
+        type: string
+    required:
+    - document_number
+    type: object
   request.Transaction:
     properties:
       account_id:
@@ -15,7 +29,57 @@ definitions:
 info:
   contact: {}
 paths:
-  /transaction:
+  /v1/account:
+    post:
+      consumes:
+      - application/json
+      description: Create an account for given document number for user.
+      parameters:
+      - description: AccountRequest
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.AccountRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Create an account for user
+  /v1/account/{accountId}:
+    get:
+      consumes:
+      - application/json
+      description: Create a transaction for given operation type with amount and account
+        id
+      parameters:
+      - description: accountId
+        in: path
+        name: accountId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Account'
+        "400":
+          description: Bad Request
+          schema: {}
+        "500":
+          description: Internal Server Error
+          schema: {}
+      summary: Initiate Transaction for a payment
+  /v1/transaction:
     post:
       consumes:
       - application/json
