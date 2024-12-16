@@ -13,13 +13,13 @@ import (
 
 func main() {
 	app := New()
-	config, err := db.LoadConfig(".")
+	config, err := db.LoadConfig()
 	if err != nil {
 		log.Fatalf("unable to load config %v", err)
 	}
 
 	log.Println("Server is starting")
-	cmd.StartService(app)
+	cmd.StartService(app, config)
 
 	log.Println("Server is running at : " + config.ServerAddress)
 	err = app.Listen(config.ServerAddress)

@@ -1,5 +1,8 @@
+# Include the .env file
+include .env
+export $(shell sed 's/=.*//' .env) # Export variables to subprocesses
 
-DB_URL=postgres://user:super-secret@0.0.0.0:5432/transaction-routines?sslmode=disable
+DB_URL=postgres://${DB_USER}:${DB_PASSWORD}@0.0.0.0:${DB_PORT}/${DB_NAME}?sslmode=disable
 
 migrate-up:
 	migrate -database "${DB_URL}" -path db/migration -verbose up
@@ -19,7 +22,7 @@ generate-docs:
 		swag init
 
 run-docker:
-	docker-compose up -d
+	docker-compose up
 
 stop-docker:
 		docker compose down --remove-orphans

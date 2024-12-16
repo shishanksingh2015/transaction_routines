@@ -16,7 +16,7 @@ FROM scratch
 WORKDIR /app
 
 COPY --from=build-stage /routines /app/routines
-COPY --from=build-stage /app/app.env /app
+COPY --from=build-stage /app/.env /app
 COPY --from=build-stage /app/db/migration /app/db/migration
 
 EXPOSE 8000

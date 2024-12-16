@@ -13,6 +13,10 @@ func newRoutineError(code int, message string) RoutineError {
 	}
 }
 
+/*
+*
+CustomErrorHandler
+*/
 func CustomErrorHandler(ctx *fiber.Ctx, err error) error {
 	var routineErr RoutineError
 

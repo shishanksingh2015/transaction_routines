@@ -10,17 +10,12 @@ import (
 	"routines/db"
 )
 
-func StartService(app *fiber.App) {
-	handler := getHandler()
+func StartService(app *fiber.App, config db.Config) {
+	handler := getHandler(config)
 	router.BindRoutes(app, handler)
 }
 
-func getHandler() *handlers.Handlers {
-	config, err := db.LoadConfig(".")
-	if err != nil {
-		return nil
-	}
-
+func getHandler(config db.Config) *handlers.Handlers {
 	database := db.ConnectDb(config)
 
 	accountRepo := repository.NewAccountRepository(database)
