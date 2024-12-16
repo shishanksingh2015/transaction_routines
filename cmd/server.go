@@ -2,7 +2,6 @@ package cmd
 
 import (
 	"github.com/gofiber/fiber/v2"
-	"golang.org/x/net/context"
 	"routines/api/handlers"
 	"routines/api/router"
 	"routines/core/persistence/provider"
@@ -11,7 +10,7 @@ import (
 	"routines/db"
 )
 
-func StartService(ctx context.Context, app *fiber.App) {
+func StartService(app *fiber.App) {
 	handler := getHandler()
 	router.BindRoutes(app, handler)
 }

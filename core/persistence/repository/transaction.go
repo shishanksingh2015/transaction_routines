@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"github.com/gofiber/fiber/v2/log"
 	"routines/core/domain"
 	"routines/core/persistence/mapper"
 	"routines/db"
@@ -20,13 +21,15 @@ type transactionRepository struct {
 func NewTransactionRepository(sqlDb *sql.DB) TransactionRepository {
 	return transactionRepository{db.NewBaseDB(sqlDb)}
 }
+
 func (t transactionRepository) CreateTransaction(ctx context.Context, transaction *domain.Transaction) error {
+	log.Info("mapping transaction domain to dao to save in database")
 	transactionDao := mapper.MapToTransactionDao(*transaction)
+
 	query := "insert into transactions(id,account_id,operation_type,amount,event_date) VALUES ($1,$2,$3,$4,$5)"
 	err := t.Insert(
 		ctx,
 		query,
-		"unable to insert",
 		transactionDao.Id,
 		transactionDao.AccountId,
 		transactionDao.OperationType,
@@ -36,5 +39,6 @@ func (t transactionRepository) CreateTransaction(ctx context.Context, transactio
 		return err
 	}
 
+	log.Info("successfully created the transaction record")
 	return nil
 }

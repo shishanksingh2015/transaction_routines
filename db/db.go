@@ -11,5 +11,11 @@ func ConnectDb(config Config) *sql.DB {
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
 	}
+
+	err = db.Ping()
+	if err != nil {
+		log.Fatalf("postgres not read: %v", err)
+	}
+
 	return db
 }

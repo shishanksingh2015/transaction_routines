@@ -17,3 +17,15 @@ mockgen:
 
 generate-docs:
 		swag init
+
+run-docker:
+	docker-compose up -d
+
+stop-docker:
+		docker compose down --remove-orphans
+
+tests:
+	go test -v ./...
+
+
+.PHONY: all run-docker migrate-up mockgen generate-docs tests

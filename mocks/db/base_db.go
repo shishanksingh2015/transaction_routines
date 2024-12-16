@@ -56,9 +56,9 @@ func (mr *MockBaseDBMockRecorder) DB(ctx any) *gomock.Call {
 }
 
 // Insert mocks base method.
-func (m *MockBaseDB) Insert(ctx context.Context, query, failureMsg string, data ...any) error {
+func (m *MockBaseDB) Insert(ctx context.Context, query string, data ...any) error {
 	m.ctrl.T.Helper()
-	varargs := []any{ctx, query, failureMsg}
+	varargs := []any{ctx, query}
 	for _, a := range data {
 		varargs = append(varargs, a)
 	}
@@ -68,8 +68,8 @@ func (m *MockBaseDB) Insert(ctx context.Context, query, failureMsg string, data 
 }
 
 // Insert indicates an expected call of Insert.
-func (mr *MockBaseDBMockRecorder) Insert(ctx, query, failureMsg any, data ...any) *gomock.Call {
+func (mr *MockBaseDBMockRecorder) Insert(ctx, query any, data ...any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	varargs := append([]any{ctx, query, failureMsg}, data...)
+	varargs := append([]any{ctx, query}, data...)
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Insert", reflect.TypeOf((*MockBaseDB)(nil).Insert), varargs...)
 }

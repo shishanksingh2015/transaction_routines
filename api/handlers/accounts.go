@@ -47,15 +47,15 @@ func (ah *AccountHandler) CreateAccount(c *fiber.Ctx) error {
 
 // GetAccount godoc
 //
-// @Summary 	Initiate Transaction for a payment
+// @Summary 	Get account for account Id
 // @Description	Create a transaction for given operation type with amount and account id
 // @Accept	 	application/json
-// @Param	  	accountId					path	integer 	true "accountId"
+// @Param	  	accountId					query	integer 	true "accountId"
 // @Produce		json
 // @Success		200	{object}		domain.Account
 // @Failure		400 {object}	interface{}
 // @Failure		500 {object}	interface{}
-// @Router      /v1/account/{accountId} [get].
+// @Router      /v1/account/:accountId [get].
 func (ah *AccountHandler) GetAccount(c *fiber.Ctx) error {
 	accountId, err := c.ParamsInt("accountId", -1)
 	if err != nil {

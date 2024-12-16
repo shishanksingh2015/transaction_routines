@@ -14,10 +14,6 @@ import (
 	"testing"
 )
 
-//	type transactionService struct {
-//		transactionRepo repository.TransactionRepository
-//		accountProvider provider.AccountProvider
-//	}
 func TestTransactionService_CreateTransaction(t *testing.T) {
 	mockCtrl := gomock.NewController(t)
 	mockTransactionRepo := repository.NewMockTransactionRepository(mockCtrl)

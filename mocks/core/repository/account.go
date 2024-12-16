@@ -12,7 +12,7 @@ package repository
 import (
 	context "context"
 	reflect "reflect"
-	request "routines/api/handlers/contract/request"
+	domain "routines/core/domain"
 
 	gomock "go.uber.org/mock/gomock"
 )
@@ -42,7 +42,7 @@ func (m *MockAccountRepository) EXPECT() *MockAccountRepositoryMockRecorder {
 }
 
 // Create mocks base method.
-func (m *MockAccountRepository) Create(ctx context.Context, request *request.AccountRequest) error {
+func (m *MockAccountRepository) Create(ctx context.Context, request *domain.Account) error {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Create", ctx, request)
 	ret0, _ := ret[0].(error)

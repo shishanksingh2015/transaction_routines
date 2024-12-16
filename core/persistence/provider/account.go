@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"github.com/gofiber/fiber/v2/log"
 	"routines/core/domain"
 	"routines/core/persistence/dao"
 	"routines/core/persistence/mapper"
@@ -33,7 +34,9 @@ func (a *accountProvider) GetAccountById(ctx context.Context, data int) (*domain
 		Scan(&resultDao.Id, &resultDao.DocumentNumber, &resultDao.CreatedAt)
 
 	if err == nil {
+		log.Info(fmt.Sprintf("account with account id %d found", data))
 		result := mapper.MapToAccount(*resultDao)
+
 		return result, nil
 	}
 
@@ -46,7 +49,9 @@ func (a *accountProvider) GetAccountById(ctx context.Context, data int) (*domain
 
 func (a *accountProvider) GetAccountByDocumentNumber(ctx context.Context, data interface{}) (*domain.Account, error) {
 	resultDao := &dao.AccountDao{}
+
 	query := "SELECT * FROM accounts WHERE document_number=$1"
+
 	err := a.dB.DB(ctx).QueryRowContext(ctx, query, data).
 		Scan(&resultDao.Id, &resultDao.DocumentNumber, &resultDao.CreatedAt)
 
@@ -54,6 +59,8 @@ func (a *accountProvider) GetAccountByDocumentNumber(ctx context.Context, data i
 		return nil, err
 	}
 
+	log.Info(fmt.Sprintf("account with account document number %s found", data))
 	result := mapper.MapToAccount(*resultDao)
+
 	return result, nil
 }

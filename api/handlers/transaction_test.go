@@ -26,10 +26,10 @@ func TestTransactionHandler_CreateTransaction(t *testing.T) {
 			Amount:        1500,
 		}
 		mockTransactionService.EXPECT().CreateTransaction(gomock.Any(), &transactionReq).Times(1).Return(nil)
-		app.Post("/transaction", transactionHandler.CreateTransaction)
+		app.Post("/v1/transaction", transactionHandler.CreateTransaction)
 		json, err := utils.StructToJson(&transactionReq)
 		assert.NoError(t, err)
-		testRequest := httptest.NewRequest("POST", "/transaction", bytes.NewBufferString(json))
+		testRequest := httptest.NewRequest("POST", "/v1/transaction", bytes.NewBufferString(json))
 		testRequest.Header.Set("Content-Type", "application/json")
 		resp, err := app.Test(testRequest, -1)
 		assert.NoError(t, err)
@@ -41,10 +41,10 @@ func TestTransactionHandler_CreateTransaction(t *testing.T) {
 			AccountId: 1,
 			Amount:    1500,
 		}
-		app.Post("/transaction", transactionHandler.CreateTransaction)
+		app.Post("v1/transaction", transactionHandler.CreateTransaction)
 		json, err := utils.StructToJson(&transactionReq)
 		assert.NoError(t, err)
-		testRequest := httptest.NewRequest("POST", "/transaction", bytes.NewBufferString(json))
+		testRequest := httptest.NewRequest("POST", "/v1/transaction", bytes.NewBufferString(json))
 		testRequest.Header.Set("Content-Type", "application/json")
 		resp, err := app.Test(testRequest, -1)
 		assert.NoError(t, err)
@@ -59,10 +59,10 @@ func TestTransactionHandler_CreateTransaction(t *testing.T) {
 		}
 		mockTransactionService.EXPECT().CreateTransaction(gomock.Any(), &transactionReq).
 			Times(1).Return(customerror.InternalError(customerror.SomethingWentWrong))
-		app.Post("/transaction", transactionHandler.CreateTransaction)
+		app.Post("/v1/transaction", transactionHandler.CreateTransaction)
 		json, err := utils.StructToJson(&transactionReq)
 		assert.NoError(t, err)
-		testRequest := httptest.NewRequest("POST", "/transaction", bytes.NewBufferString(json))
+		testRequest := httptest.NewRequest("POST", "/v1/transaction", bytes.NewBufferString(json))
 		testRequest.Header.Set("Content-Type", "application/json")
 		resp, err := app.Test(testRequest, -1)
 		assert.NoError(t, err)

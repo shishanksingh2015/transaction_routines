@@ -5,6 +5,8 @@ definitions:
         type: string
       id:
         type: integer
+      isValid:
+        type: boolean
     type: object
   request.AccountRequest:
     properties:
@@ -16,10 +18,13 @@ definitions:
   request.Transaction:
     properties:
       account_id:
+        description: account id from user accounts
         type: integer
       amount:
+        description: amount in float with 2 decimal places 11.22
         type: number
       operation_type:
+        description: operation type ( 1,2,3,4)
         type: integer
     required:
     - account_id
@@ -53,7 +58,7 @@ paths:
           description: Internal Server Error
           schema: {}
       summary: Create an account for user
-  /v1/account/{accountId}:
+  /v1/account/:accountId:
     get:
       consumes:
       - application/json
@@ -61,7 +66,7 @@ paths:
         id
       parameters:
       - description: accountId
-        in: path
+        in: query
         name: accountId
         required: true
         type: integer
@@ -78,7 +83,7 @@ paths:
         "500":
           description: Internal Server Error
           schema: {}
-      summary: Initiate Transaction for a payment
+      summary: Get account for account Id
   /v1/transaction:
     post:
       consumes:

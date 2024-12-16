@@ -7,8 +7,6 @@ RUN go mod download
 
 COPY . .
 
-RUN go test -v ./...
-
 # Build binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o /routines main.go
 

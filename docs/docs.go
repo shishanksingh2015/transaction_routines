@@ -51,7 +51,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/v1/account/{accountId}": {
+        "/v1/account/:accountId": {
             "get": {
                 "description": "Create a transaction for given operation type with amount and account id",
                 "consumes": [
@@ -60,13 +60,13 @@ const docTemplate = `{
                 "produces": [
                     "application/json"
                 ],
-                "summary": "Initiate Transaction for a payment",
+                "summary": "Get account for account Id",
                 "parameters": [
                     {
                         "type": "integer",
                         "description": "accountId",
                         "name": "accountId",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -134,6 +134,9 @@ const docTemplate = `{
                 },
                 "id": {
                     "type": "integer"
+                },
+                "isValid": {
+                    "type": "boolean"
                 }
             }
         },
@@ -157,12 +160,15 @@ const docTemplate = `{
             ],
             "properties": {
                 "account_id": {
+                    "description": "account id from user accounts",
                     "type": "integer"
                 },
                 "amount": {
+                    "description": "amount in float with 2 decimal places 11.22",
                     "type": "number"
                 },
                 "operation_type": {
+                    "description": "operation type ( 1,2,3,4)",
                     "type": "integer"
                 }
             }

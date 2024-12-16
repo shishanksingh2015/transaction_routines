@@ -1,8 +1,8 @@
 package main
 
 import (
-	"context"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/logger"
 	"log"
 	"routines/cmd"
 	customError "routines/customerror"
@@ -12,17 +12,28 @@ import (
 )
 
 func main() {
-	app := fiber.New(fiber.Config{
-		Immutable:    true,
-		ErrorHandler: customError.CustomErrorHandler,
-	})
+	app := New()
 	config, err := db.LoadConfig(".")
 	if err != nil {
 		log.Fatalf("unable to load config %v", err)
 	}
-	cmd.StartService(context.Background(), app)
+
+	log.Println("Server is starting")
+	cmd.StartService(app)
+
+	log.Println("Server is running at : " + config.ServerAddress)
 	err = app.Listen(config.ServerAddress)
 	if err != nil {
 		log.Fatalf("unable to start server %v", err)
 	}
+}
+
+func New() *fiber.App {
+	app := fiber.New(fiber.Config{
+		Immutable:    true,
+		ErrorHandler: customError.CustomErrorHandler,
+	})
+
+	app.Use(logger.New(cmd.LoggerConfig()))
+	return app
 }

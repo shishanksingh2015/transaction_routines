@@ -13,6 +13,29 @@ func newRoutineError(code int, message string) RoutineError {
 	}
 }
 
+func CustomErrorHandler(ctx *fiber.Ctx, err error) error {
+	var routineErr RoutineError
+
+	var fiberErr *fiber.Error
+
+	switch true {
+	case errors.As(err, &routineErr):
+		return writeResponse(ctx, routineErr)
+	case errors.As(err, &fiberErr):
+		switch fiberErr.Code {
+		case fiber.StatusNotFound:
+			routineErr = NotFound(fiberErr.Error())
+		case fiber.StatusMethodNotAllowed:
+			routineErr = MethodNotAllowed(fiberErr.Error())
+		default:
+			routineErr = InternalError(fiberErr.Error())
+		}
+		return writeResponse(ctx, routineErr)
+	default:
+		return writeResponse(ctx, InternalError(err.Error()))
+	}
+}
+
 func BadRequest(msg string) RoutineError {
 	return newRoutineError(http.StatusBadRequest, msg)
 }
@@ -34,29 +57,6 @@ func MethodNotAllowed(msg string) RoutineError {
 	return routineError{
 		message:    msg,
 		statusCode: http.StatusMethodNotAllowed,
-	}
-}
-
-func CustomErrorHandler(ctx *fiber.Ctx, err error) error {
-	var routineErr RoutineError
-
-	var fiberErr *fiber.Error
-
-	switch true {
-	case errors.As(err, &routineErr):
-		return writeResponse(ctx, routineErr)
-	case errors.As(err, &fiberErr):
-		switch fiberErr.Code {
-		case fiber.StatusNotFound:
-			routineErr = NotFound(fiberErr.Error())
-		case fiber.StatusMethodNotAllowed:
-			routineErr = MethodNotAllowed(fiberErr.Error())
-		default:
-			routineErr = InternalError(fiberErr.Error())
-		}
-		return writeResponse(ctx, routineErr)
-	default:
-		return writeResponse(ctx, InternalError(err.Error()))
 	}
 }
 

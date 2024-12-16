@@ -20,6 +20,10 @@ func (ot OperationType) IsCreditVoucher() bool {
 	return ot == CreditVoucher
 }
 
+func (ot OperationType) IsPurchaseOrWithdraw() bool {
+	return ot == PurchaseWithInstallments || ot == Withdrawal || ot == NormalPurchase
+}
+
 func (ot OperationType) Int() int {
 	return int(ot)
 }

@@ -13,17 +13,23 @@ type Transaction struct {
 	AccountId     int
 }
 
-func (t *Transaction) AddAmount(amount float64) error {
-	if data.IsValidOperationType(t.OperationType) {
-		if !t.OperationType.IsCreditVoucher() {
-			t.Amount = -amount
-		} else {
-			t.Amount = amount
-		}
-	} else {
-		return customerror.BadRequest(fmt.Sprintf(customerror.AccountNotFound, t.OperationType.Int()))
+func (t *Transaction) AddOperationType(operationType data.OperationType) error {
+	if !data.IsValidOperationType(operationType) {
+		return customerror.BadRequest(fmt.Sprintf(customerror.OperationNotValid, t.OperationType.Int()))
 	}
+	t.OperationType = operationType
+	return nil
+}
 
+func (t *Transaction) AddAmount(amount float64) error {
+	if t.OperationType.IsCreditVoucher() {
+		t.Amount = amount
+	} else if t.OperationType.IsPurchaseOrWithdraw() {
+		t.Amount = -amount
+	} else {
+		return customerror.BadRequest(fmt.Sprintf(customerror.UnableToAddAmount, t.OperationType.Int()))
+	}
+	
 	return nil
 }
 
