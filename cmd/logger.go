@@ -7,6 +7,10 @@ import (
 	"time"
 )
 
+// LoggerConfig
+//
+//	@Description: It contains all the logging info for fiber middleware
+//	@return logger.Config can be updated here for any new log
 func LoggerConfig() logger.Config {
 	fields := map[string]string{
 		"time":   "${time}",

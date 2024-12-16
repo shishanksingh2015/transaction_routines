@@ -27,6 +27,13 @@ func NewAccountProvider(sqlDb *sql.DB) AccountProvider {
 	return &accountProvider{dB: db.NewBaseDB(sqlDb)}
 }
 
+// GetAccountById
+//
+//	@Description: Retrieves an account for a user based on the provided account ID.
+//	@param ctx context
+//	@param data the unique identifier of the account (int).
+//	@return *domain.Account-the account details mapped from the data access object (DAO).
+//	@return error
 func (a *accountProvider) GetAccountById(ctx context.Context, data int) (*domain.Account, error) {
 	resultDao := &dao.AccountDao{}
 	query := "SELECT * FROM accounts WHERE id=$1"
@@ -47,6 +54,13 @@ func (a *accountProvider) GetAccountById(ctx context.Context, data int) (*domain
 	return nil, customerror.InternalError(customerror.SomethingWentWrong)
 }
 
+// GetAccountByDocumentNumber
+//
+//	@Description: Retrieves an account for a user based on the provided document number.
+//	@param ctx context
+//	@param data the unique identifier of the account (document number).
+//	@return *domain.Account-the account details mapped from the data access object (DAO).
+//	@return error
 func (a *accountProvider) GetAccountByDocumentNumber(ctx context.Context, data interface{}) (*domain.Account, error) {
 	resultDao := &dao.AccountDao{}
 

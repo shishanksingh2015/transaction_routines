@@ -28,6 +28,13 @@ func NewTransactionService(repo repository.TransactionRepository, acProvider pro
 		accountProvider: acProvider,
 	}
 }
+
+// CreateTransaction
+//
+//	@Description: It will create transaction after applying the business logic on the domain for given request and forward to transaction repository
+//	@param ctx userContext
+//	@param request Transaction Request
+//	@return error
 func (ts *transactionService) CreateTransaction(ctx context.Context, request *request.Transaction) error {
 	log.Info("initiating create transaction and creating unique txn id for new transaction")
 	id, err := data.CreateTransactionId()

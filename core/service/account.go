@@ -27,6 +27,13 @@ type accountService struct {
 func NewAccountService(repo repository.AccountRepository, provider provider.AccountProvider) AccountService {
 	return &accountService{accountRepo: repo, accountProvider: provider}
 }
+
+// CreateAccount
+//
+//	@Description: It will handle the request from handler and apply logic on domain and forward to account repository
+//	@param ctx user context
+//	@param request AccountRequest from account handler
+//	@return error
 func (ah *accountService) CreateAccount(ctx context.Context, request *request.AccountRequest) error {
 	log.Info("initiating create account request " +
 		"and checking if account exist for same document number")
@@ -60,6 +67,13 @@ func (ah *accountService) CreateAccount(ctx context.Context, request *request.Ac
 	return nil
 }
 
+// GetAccountById
+//
+//	@Description: Fetch account from provider for given account id
+//	@param ctx
+//	@param accountId
+//	@return *domain.Account return the domain.Account from provider
+//	@return error
 func (ah *accountService) GetAccountById(ctx context.Context, accountId int) (*domain.Account, error) {
 	log.Info(fmt.Sprintf("fetching account from provider for id %d exist", accountId))
 	account, err := ah.accountProvider.GetAccountById(ctx, accountId)

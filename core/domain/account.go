@@ -6,6 +6,10 @@ type Account struct {
 	IsValid        bool
 }
 
+// IsDocumentValid
+//
+//	@Description: Check if document number is valid.
+//	@return bool return true or false
 func (a *Account) IsDocumentValid() bool {
 	a.IsValid = true // mocking it is to be true
 	if len(a.DocumentNumber) >= 10 {

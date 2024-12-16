@@ -15,6 +15,11 @@ func StartService(app *fiber.App, config db.Config) {
 	router.BindRoutes(app, handler)
 }
 
+// getHandler
+//
+//	@Description: It is a private method that will generate all handlers and services and other dependencies
+//	@param config Db config to connect to db
+//	@return *handlers.Handlers list of handlers
 func getHandler(config db.Config) *handlers.Handlers {
 	database := db.ConnectDb(config)
 

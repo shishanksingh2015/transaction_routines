@@ -22,6 +22,12 @@ func NewTransactionRepository(sqlDb *sql.DB) TransactionRepository {
 	return transactionRepository{db.NewBaseDB(sqlDb)}
 }
 
+// CreateTransaction
+//
+//	@Description: Will create an entry in transaction table for given domain values
+//	@param ctx context
+//	@param request domain.Transaction which will be mapped to data access object
+//	@return error
 func (t transactionRepository) CreateTransaction(ctx context.Context, transaction *domain.Transaction) error {
 	log.Info("mapping transaction domain to dao to save in database")
 	transactionDao := mapper.MapToTransactionDao(*transaction)

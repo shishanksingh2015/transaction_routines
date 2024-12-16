@@ -23,6 +23,12 @@ func NewAccountRepository(dB *sql.DB) AccountRepository {
 	return &accountRepository{Db: db.NewBaseDB(dB)}
 }
 
+// Create
+//
+//	@Description: Will create an entry in account table for given domain values
+//	@param ctx context
+//	@param request domain.Account which will be mapped to data access object
+//	@return error
 func (ar *accountRepository) Create(ctx context.Context, request *domain.Account) error {
 	log.Info("mapping account domain to dao to save in database")
 	dao := mapper.MapToAccountDao(*request)
