@@ -1,5 +1,7 @@
 #!/bin/bash
 
+chmod +x run.sh
+
 set -e
 
 echo "Starting routines docker ..."
