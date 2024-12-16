@@ -41,8 +41,7 @@ func TestTransactionService_CreateTransaction(t *testing.T) {
 			OperationType: -1,
 			Amount:        20,
 		}
-		mockAccountProvider.EXPECT().GetAccountById(ctx, requestTxn.AccountId).Times(1).
-			Return(&domain.Account{Id: requestTxn.AccountId}, nil)
+
 		err := service.CreateTransaction(ctx, requestTxn)
 		assert.Error(t, err)
 		assert.Errorf(t, err, "operation type not allowed -1")
