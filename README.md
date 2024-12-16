@@ -34,6 +34,9 @@ Make mockgen
 * [https://github.com/golang/mock](https://github.com/golang/mock) Mocking library to mock the services and repository for unit test.
 * [https://github.com/swaggo](https://github.com/swaggo) To Generate the api documentation
 
+### Documentation
+Api documentation can be found on this After running the project locally
+http://127.0.0.1:8080/v1/swagger/index.htm
 
 ## Database
 * Postgres
