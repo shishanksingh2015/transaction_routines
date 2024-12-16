@@ -7,7 +7,11 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - DB_SOURCE=postgresql://${DB_USER}:${DB_PASSWORD}@go_db:${DB_PORT}/${DB_NAME}?sslmode=disable
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
     depends_on:
       - db
     ports:

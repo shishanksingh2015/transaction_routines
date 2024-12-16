@@ -22,7 +22,7 @@ generate-docs:
 		swag init
 
 run-docker:
-	docker-compose up
+	docker-compose up -d
 
 stop-docker:
 		docker compose down --remove-orphans

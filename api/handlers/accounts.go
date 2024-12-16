@@ -47,7 +47,7 @@ func (ah *AccountHandler) CreateAccount(c *fiber.Ctx) error {
 
 // GetAccount godoc
 //
-// @Summary 	Get account for account Id
+// @Summary 	Get account for accountId
 // @Description	Create a transaction for given operation type with amount and account id
 // @Accept	 	application/json
 // @Param	  	accountId					query	integer 	true "accountId"

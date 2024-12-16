@@ -1,6 +1,7 @@
 package db
 
 import (
+	"fmt"
 	"github.com/joho/godotenv"
 	"os"
 )
@@ -28,6 +29,6 @@ func LoadConfig() (config Config, err error) {
 	config.DBDriver = os.Getenv("DB_DRIVER")
 	config.DBHost = os.Getenv("DB_HOST")
 	config.ServerAddress = os.Getenv("SERVER_ADDRESS")
-
+	fmt.Println(config)
 	return config, err
 }

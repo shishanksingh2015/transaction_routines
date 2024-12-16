@@ -44,6 +44,7 @@ func (ah *accountService) CreateAccount(ctx context.Context, request *request.Ac
 			fmt.Sprintf(customerror.AccountExists, request.DocumentNumber))
 	}
 	if !errors.Is(err, sql.ErrNoRows) {
+		fmt.Errorf("database", err.Error())
 		return customerror.InternalError(err.Error())
 	}
 
