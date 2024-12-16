@@ -2,21 +2,19 @@
 
 set -e
 
-echo "Starting Docker containers..."
+echo "Starting routines docker ..."
 make run-docker
 
-echo "Waiting for PostgreSQL to be ready..."
+echo "Waiting for Database..."
 until docker exec -it go_db pg_isready -U user -d transaction-routines > /dev/null 2>&1; do
-  echo "Waiting for PostgreSQL to be ready..."
+  echo "Waiting for database to be ready..."
   sleep 2
 done
 
-echo "PostgreSQL is ready!"
+echo "Database is ready!"
 
 echo "Running migrations..."
 
 make migrate-up
 
-echo "Starting application..."
-
-echo "Application started successfully!"
+echo "Routines started successfully!"
